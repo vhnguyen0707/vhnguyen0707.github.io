@@ -9,7 +9,7 @@ const MainLayout:React.FC = () => {
       <StarsScene />
       <div className='absolute w-full h-full flex flex-col justify-between'>
         <NavBar />
-        <div className='grow flex flex-col gap-14 px-8 max-w-[1440px] mx-auto pt-12'>
+        <div className='grow flex flex-col gap-14 px-8 w-full max-w-[1440px] mx-auto pt-12'>
           <Outlet />
         </div>
       </div>

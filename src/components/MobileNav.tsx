@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import navLinks from '../common/constants';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 
 const MobileNav:React.FC = () => {
@@ -35,7 +35,7 @@ const MobileNav:React.FC = () => {
             <nav className='fixed mt-6'>
                 {navLinks.map(link => (
                     <div key={link.title} className='text-2xl px-12 py-4 tracking-wide'>
-                        <Link to={link.href} onClick={toggleOpenNav}>{link.title}</Link>
+                       <HashLink to={link.href} onClick={toggleOpenNav}>{link.title}</HashLink>
                     </div>
                 ))}
             </nav>

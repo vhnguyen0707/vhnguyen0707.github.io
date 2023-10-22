@@ -13,7 +13,8 @@ const ResumePdf = () => {
   useEffect(() => {
     document.title = 'Nguyen\'s resume'
   }, [])
-  const [width, setWidth] = useState(Math.min(window.innerWidth * 0.7, 800));
+  const [width, setWidth] = useState(Math.min(window.innerWidth * 0.7, 800)); 
+  console.log(width);
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(Math.min(window.innerWidth * 0.7, 800));
@@ -33,16 +34,15 @@ const ResumePdf = () => {
     });
   };
   return (
-    <Document
-      file={pdf}
-      loading="Loading PDF..."
-      externalLinkTarget="_blank"
-    >
-      <div style={{height: width * (11/8.5)}} className='overflow-hidden'>
-        <Page pageNumber={1} width={width} onLoadSuccess={removeTextLayerOffset}/>
-      </div>
-
-    </Document>
+    <div style={{height: width * (11/8.5), width: width}} className='overflow-hidden mx-auto'>
+      <Document
+        file={pdf}
+        loading="Loading PDF..."
+        externalLinkTarget="_blank"
+      >
+          <Page pageNumber={1} width={width} onLoadSuccess={removeTextLayerOffset}/>
+      </Document>
+    </div>
   )
 }
 const Resume = () => {

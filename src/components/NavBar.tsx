@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
 import navLinks from '../common/constants';
+import { HashLink } from 'react-router-hash-link';
+
 
 
 const NavBar:React.FC = () => {
@@ -17,9 +19,10 @@ const NavBar:React.FC = () => {
                     <MobileNav />
                     <nav>
                         <ul className='flex items-center justify-around gap-3 -sm:hidden'>
-                            {navLinks.map(link => (
+                            {navLinks.map((link) => (
                                 <li key={link.title} className="link">
-                                    <a href={link.href}>{link.title}</a>
+                                    <HashLink to={link.href}>{link.title}</HashLink>
+                                    {/* {link.title!== 'Resume' ? <a href={link.href}>{link.title}</a> : <Link to={link.href}>{link.title}</Link>} */}
                                 </li>
                             ))}
                         </ul>

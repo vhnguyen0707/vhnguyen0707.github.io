@@ -1,5 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import * as THREE from 'three';
+import star1 from '../assets/star1.png';
+import star2 from '../assets/star2.png';
 
 const getRandomParticles = (numberOfParticles:number) => {
     const arr = new Float32Array(numberOfParticles * 3);
@@ -40,12 +42,12 @@ const Background:React.FC = () => {
         const materials = [
             new THREE.PointsMaterial({
                 size: 0.075,
-                map: loader.load('../src/assets/star1.png'),
+                map: loader.load(star1),
                 transparent: true
             }),
             new THREE.PointsMaterial({
                 size: 0.1,
-                map: loader.load("../src/assets/star2.png"),
+                map: loader.load(star2),
                 transparent: true,
               }),
         ]
