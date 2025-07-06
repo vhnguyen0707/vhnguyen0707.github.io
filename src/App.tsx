@@ -1,19 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
-import Homepage from './pages/Homepage';
-import Resume from './pages/Resume';
-import MainLayout from './common/MainLayout';
 
+import WebGLCanvas from "./components/webgl/WebGLCanvas";
 
 const App = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Homepage />} />
-          <Route path="/resume" element={<Resume />} />
-        </Route>
-      </Routes>
-    </div>
+      <div>
+          {/*<div style={{backgroundColor: "pink", width: "100%", height: "200px"}} />*/}
+         <WebGLCanvas />
+
+          {/* Content below for scrolling */}
+          <div style={{ height: "100vh", padding: "20px", backgroundColor: "#f5f5f5" }}>
+              <h1>Welcome to My Portfolio</h1>
+              <p>Scroll to zoom in and focus on the screen...</p>
+              <div style={{ height: "80vh" }}></div>
+          </div>
+      </div>
   )
 }
 
