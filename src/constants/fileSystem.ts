@@ -112,7 +112,7 @@ export const FileSystem: FileSystemStructure = {
             "projects": {
                 type: "directory",
                 contents: projects.reduce((acc, project) => {
-                    acc[`${project.name}`] = {
+                    acc[`${project.name.split(" ").join("_")}`] = {
                         type: "file",
                         content: project.summary,
                     };

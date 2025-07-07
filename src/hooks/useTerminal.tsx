@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import {FileSystem} from "../constants/fileSystem";
+import {TERMINAL_CONSTANTS} from "../components/webgl/constants";
 
 
 interface Blinker {
@@ -19,22 +20,27 @@ export interface TerminalState {
     scrollOffset: number;
     setScrollOffset: (offset: number) => void;
     outputsText: string;
+    totalLines: number;
 }
 
-// const FileSystem: FileSystemStructure = {
-//     "root": {type: "directory", contents: {
-//         "projects": {type: "directory", contents: {
-//                 "projects.txt": {type: "file", content: "Below are some of the projects I have developed over\nmy 6+ years of coding. This is just a small selection\nof the many projects I've worked on, with several\nothers not making the list. Please note that some of\nthese projects are unfinished—either because I lacked\nthe necessary skills at the time or simply moved on to\nmore interesting challenges. However, rest assured I\nplan to revisit and polish these projects in the future\nimproving their code with my current level of expertise."},
-//                 "lighting_engine.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/Pygame_Lighting_Engine"},
-//                 "wakeword_engine.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/Python-Wake-Word-Engine"},
-//                 "square_game_halloween.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/Square-Game-Halloween"},
-//                 "personal_website.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/luckeyduckey.github.io/tree/main"},
-//                 "password_vault.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/Password-Vault"},
-//                 "jarvis.lnk": {type: "link", content: "https://github.com/LuckeyDuckey/Jarvis"},
-//             }},
-//         "about.txt": {type: "file", content: "I'm an aspiring software developer with a passion\nfor exploring the vast possibilities of programming.\nI've been coding since I was 12, starting with small\ngames in Python and evolving into a diverse range of\nprojects. Over the years, I've delved into AI,\nmachine learning, graphics programming, cybersecurity\nand web development. My experience spans from creating\nvirtual assistants and VR applications to developing\nshaders and procedurally generated visuals. I'm driven\nby a love for technology and a desire to learn, create\nand solve complex problems. I'm proficient in Python\nC++, JavaScript, and C#, with Python being my\nstrongest language."},
-//         "experience.txt": {type: "file", content: "Error 404 not found. That's right I have no\nprofessional in industry experience, however I still\nbring over 6 years of hands-on experience in coding\nand software development from personal projects and\nself-driven learning. I've tackled a wide range of\nchallenges, from developing AI-powered virtual\nassistants and machine learning models to creating\ngraphics and VR applications. My projects have allowed\nme to build strong skills in Python, C++, JavaScript\nand C#, and I've gained a solid foundation in problem\nsolving, collaboration, and adaptability. I'm eager\nto apply my knowledge and passion for technology in\na professional setting, where I can continue to learn\nand grow as a software developer."},}},
-// };
+// Word wrap function
+const wordWrap = (text: string, maxWidth: number): string => {
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
+
+    for (const word of words) {
+        if ((currentLine + word).length <= maxWidth) {
+            currentLine += (currentLine ? ' ' : '') + word;
+        } else {
+            if (currentLine) lines.push(currentLine);
+            currentLine = word;
+        }
+    }
+    if (currentLine) lines.push(currentLine);
+
+    return lines.join('\n');
+};
 
 export default function useTerminal(): TerminalState {
     const [outputsText, setOutputsText] = useState<string>('');
@@ -44,22 +50,31 @@ export default function useTerminal(): TerminalState {
     const [blinker, setBlinker] = useState<Blinker>({index: 0, time: Date.now() * 0.001});
     const [bootTime, setBootTime] = useState<number>(0);
     const [isBooting, setIsBooting] = useState<boolean>(true);
+    const [blinkState, setBlinkState] = useState<boolean>(true);
 
     // Boot sequence
     useEffect(() => {
         const interval = setInterval(() => {
             setBootTime(prev => prev + 0.1);
-        }, 100);
+        }, 50);
 
         const bootTimeout = setTimeout(() => {
             setIsBooting(false);
             clearInterval(interval);
-        }, 5000);
+        }, 2500);
 
         return () => {
             clearInterval(interval);
             clearTimeout(bootTimeout);
         };
+    }, []);
+
+    // Cursor blink animation
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setBlinkState(prev => !prev);
+        }, 500);
+        return () => clearInterval(interval);
     }, []);
 
     // Generate boot sequence text
@@ -76,7 +91,7 @@ export default function useTerminal(): TerminalState {
         if (bootTime > 1.1) bootText += "Welcome to Nguyen-OS 2.0.0 x86_64\n";
         if (bootTime > 1.2) bootText += "Type 'help' to list available commands\n";
         if (bootTime > 1.7) bootText += `Loading ${loadingChars[Math.ceil((Math.min(3.7, bootTime) % 0.4) / 0.1) - 1]} ${Math.ceil(Math.min(100, (bootTime - 1.7) / 0.02))}%\n`;
-        if (bootTime > 4.0) bootText += "Complete!\n\n";
+        if (bootTime > 2.0) bootText += "Complete!\n";
 
         return bootText;
     };
@@ -146,7 +161,8 @@ export default function useTerminal(): TerminalState {
             const file = directoryContents.contents[inputFile];
 
             if (file.type === "file") {
-                return `\n${file.content}\n\n`;
+                const wrappedContent = wordWrap(file.content || "", 50);
+                return `\n${wrappedContent}\n\n`;
             } else if (file.type === "link") {
                 window.open(file.content);
                 return `\nRedirecting to '${file.content}'\n\n`;
@@ -200,7 +216,7 @@ export default function useTerminal(): TerminalState {
                 if (args.length) {
                     result = "\nError: 'help' doesn't accept any arguments\n\n";
                 } else {
-                    result = "\nPress 'tab' for auto complete\n\nLS       Lists current directory contents\nCD       Change directory, '..' moves back, '/' to root\nSHOW    Opens specified file in current directory\nCLEAR    Clears all previous terminal outputs\n\n";
+                    result = "\nPress 'tab' for auto complete\n\nLS       Lists current directory contents\nCD       Changes directory, '..' moves back, '/' to root\nSHOW     Opens specified file in current directory\nCLEAR    Clears all previous terminal outputs\n\n";
                 }
                 break;
 
@@ -247,26 +263,38 @@ export default function useTerminal(): TerminalState {
         }
     };
 
+    // Helper function to get total line count for scrolling
+    const getAllLines = () => {
+        const bootLines = getBootSequence().split("\n");
+        const outputLines = outputsText.split("\n");
+        return [...bootLines, ...outputLines];
+    }
+
     // Get display text
     const getDisplayText = (): string => {
         // Always show the boot sequence at the top
-        let finalText = getBootSequence();
 
         if (isBooting) {
-            return finalText;
+            return getBootSequence();
         }
+        let finalText = "";
+        // Combine boot sequence and outputs for scrolling
+        const allLines = getAllLines();
+        // const maxVisible = TERMINAL_CONSTANTS.MAX_VISIBLE_LINES;
+        const totalLines = allLines.length;
 
-        // Add terminal output after boot sequence
-        const lines = outputsText.split("\n");
-        const displayLines = lines.slice(scrollOffset, Math.min(scrollOffset + 30, lines.length));
+        // Show the last maxVisible lines, or scroll up if needed
+        const start = Math.max(0, totalLines - TERMINAL_CONSTANTS.MAX_VISIBLE_LINES - scrollOffset);
+        const end = Math.max(0, totalLines - scrollOffset);
+        const displayLines = allLines.slice(start, end);
+
         finalText += displayLines.join("\n");
-
-        if (scrollOffset + 30 >= lines.length) {
+        if (scrollOffset === 0) {
             const currentTime = Date.now() * 0.001;
             const showCursor = (currentTime - blinker.time) % 1 < 0.5;
 
             if (showCursor) {
-                finalText += `${directory}> ${inputText.slice(0, blinker.index)}█${inputText.slice(blinker.index + 1)}`;
+                finalText += `${directory}> ${inputText.slice(0, blinker.index)}█${inputText.slice(blinker.index)}`;
             } else {
                 finalText += `${directory}> ${inputText}`;
             }
@@ -286,6 +314,7 @@ export default function useTerminal(): TerminalState {
         isBooting,
         scrollOffset,
         setScrollOffset,
-        outputsText
+        outputsText,
+        totalLines: getAllLines().length,
     };
 }

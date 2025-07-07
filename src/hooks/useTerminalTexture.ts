@@ -6,7 +6,6 @@ export default function useTerminalTexture(terminal: TerminalState) {
     const [texture, setTexture] = useState<THREE.CanvasTexture | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const contextRef = useRef<CanvasRenderingContext2D>(null);
-    const [blinkState, setBlinkState] = useState(true);
 
     // Create canvas and context
     useEffect(() => {
@@ -31,13 +30,7 @@ export default function useTerminalTexture(terminal: TerminalState) {
         };
     }, []);
 
-    // Cursor blink animation
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBlinkState(prev => !prev);
-        }, 500);
-        return () => clearInterval(interval);
-    }, []);
+
 
     // Render terminal content to canvas
     useEffect(() => {
@@ -70,7 +63,7 @@ export default function useTerminalTexture(terminal: TerminalState) {
 
         // Update texture
         texture.needsUpdate = true;
-    }, [terminal.displayText, texture, blinkState]);
+    }, [terminal.displayText]);
 
     return texture;
 }

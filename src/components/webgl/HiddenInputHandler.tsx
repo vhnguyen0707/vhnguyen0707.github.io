@@ -1,5 +1,6 @@
 import {useEffect, useRef} from "react";
 import type {TerminalState} from "../../hooks/useTerminal";
+import { TERMINAL_CONSTANTS } from "./constants";
 
 interface HiddenInputHandlerProps {
   terminal: TerminalState;
@@ -12,41 +13,43 @@ export default function HiddenInputHandler({ terminal, isActive }: HiddenInputHa
     if (!isActive || terminal.isBooting) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      const linesCount = terminal.outputsText.split('\n').length;
+      const {totalLines, scrollOffset} = terminal;
 
       if (e.key.length === 1 && terminal.inputText.length + 3 < 55) {
-        const newInput = terminal.inputText.slice(0, terminal.blinker.index) + e.key.toLowerCase() + terminal.inputText.slice(terminal.blinker.index);
+        const newInput = terminal.inputText.slice(0, terminal.blinker.index) + e.key + terminal.inputText.slice(terminal.blinker.index);
         terminal.setInputText(newInput);
-        terminal.setBlinker({index: terminal.blinker.index + 1, time: Date.now() * 0.001});
-        if (terminal.scrollOffset < linesCount - 30) {
-          terminal.setScrollOffset(Math.max(0, linesCount - 30));
+        terminal.setBlinker({index: terminal.blinker.index + 1, time: terminal.blinker.time});
+        // Only auto-scroll to bottom if we're already at the bottom
+        if (scrollOffset === 0) {
+          terminal.setScrollOffset(0);
         }
-      } else if (e.key === 'Backspace' && terminal.inputText && terminal.blinker.index > 0) {
-        const newInput = terminal.inputText.slice(0, terminal.blinker.index - 1) + terminal.inputText.slice(terminal.blinker.index);
-        terminal.setInputText(newInput);
-        terminal.setBlinker({index: terminal.blinker.index - 1, time: Date.now() * 0.001});
-        if (terminal.scrollOffset < linesCount - 30) {
-          terminal.setScrollOffset(Math.max(0, linesCount - 30));
-        }
+              } else if (e.key === 'Backspace' && terminal.inputText && terminal.blinker.index > 0) {
+          const newInput = terminal.inputText.slice(0, terminal.blinker.index - 1) + terminal.inputText.slice(terminal.blinker.index);
+          terminal.setInputText(newInput);
+          terminal.setBlinker({index: terminal.blinker.index - 1, time: terminal.blinker.time});
+          // Only auto-scroll to bottom if we're already at the bottom
+          if (scrollOffset === 0) {
+            terminal.setScrollOffset(0);
+          }
       } else if (e.key === 'ArrowLeft') {
         terminal.setBlinker({index: Math.max(0, terminal.blinker.index - 1), time: Date.now() * 0.001});
       } else if (e.key === 'ArrowRight') {
         terminal.setBlinker({index: Math.min(terminal.inputText.length, terminal.blinker.index + 1), time: Date.now() * 0.001});
       } else if (e.key === 'ArrowDown') {
-        terminal.setScrollOffset(Math.max(0, terminal.scrollOffset - 1));
+        terminal.setScrollOffset(Math.max(0, scrollOffset - 1));
       } else if (e.key === 'ArrowUp') {
-        terminal.setScrollOffset(Math.min(linesCount - 1, terminal.scrollOffset + 1));
+        const maxScroll = Math.max(0, totalLines - TERMINAL_CONSTANTS.MAX_VISIBLE_LINES); // clamp so we don’t over-scroll
+        console.log('maxScroll:', maxScroll, 'current scrollOffset:', scrollOffset);
+        terminal.setScrollOffset(Math.min(maxScroll, scrollOffset + 1));
       } else if (e.key === 'Tab') {
         e.preventDefault();
         terminal.autoComplete();
       } else if (e.key === 'Enter') {
         terminal.executeCommand(terminal.inputText);
         terminal.setInputText('');
-        terminal.setBlinker({index: 0, time: Date.now() * 0.001});
-        const newLinesCount = terminal.outputsText.split('\n').length;
-        if (terminal.scrollOffset < newLinesCount - 30) {
-          terminal.setScrollOffset(Math.max(0, newLinesCount - 30));
-        }
+        terminal.setBlinker({index: 0, time: terminal.blinker.time});
+        // Always scroll to bottom when executing a command
+        terminal.setScrollOffset(0);
       }
     };
 

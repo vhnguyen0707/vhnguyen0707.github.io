@@ -23,7 +23,7 @@ function CameraController({ scroll, sizes }: { scroll: number, sizes: Sizes }) {
         camera.position.z = valMap(
             scroll,
             [0, 0.15],
-            [-2.35 - sizes.portraitOffset, -10 - sizes.portraitOffset]
+            [-2.6 - sizes.portraitOffset, -10 - sizes.portraitOffset]
         );
 
         // Always look at origin
@@ -47,11 +47,11 @@ export default function Scene({ scroll, sizes, terminal }: { scroll: number, siz
 
     return (
         <>
-            <ambientLight color={0xffffff} intensity={0.55}/>
+            <ambientLight intensity={0.55}/>
             <directionalLight
               position={[10, 10, 0]}
               intensity={5.5}
-              color="0xffffff"
+            //   color="0xFFFFFF"
             />
 
             {/* Camera Controller */}
@@ -61,7 +61,7 @@ export default function Scene({ scroll, sizes, terminal }: { scroll: number, siz
             />
 
             {/* Computer Model */}
-            <Suspense fallback={<CanvasLoader/>}>
+            <Suspense fallback={null}>
                 <Computer
                     scroll={scroll}
                     sizes={sizes}

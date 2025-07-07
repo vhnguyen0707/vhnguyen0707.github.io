@@ -35,7 +35,6 @@ export default function WebGLCanvas() {
         portraitOffset: 0,
     });
     const [viewHeight, setViewHeight] = useState(document.documentElement.clientHeight);
-    // const [isScreenFocused, setIsScreenFocused] = useState(true);
     const isInputActive = scroll >= 0 && scroll <= 0.05;
     const terminal = useTerminal();
     useEffect(() => {
@@ -91,7 +90,7 @@ export default function WebGLCanvas() {
                 className="computer-canvas"
                 style={{
                     width: "100%",
-                    height: "100vh",
+                    height: "110vh",
                 }}
                 ref={canvasRef}
                 camera={{
@@ -103,6 +102,7 @@ export default function WebGLCanvas() {
                     rotation: [-Math.PI, 0, Math.PI],
                 }}
                 shadows
+                // resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
             >
                 <Scene
                     scroll={scroll}

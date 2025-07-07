@@ -52,9 +52,9 @@ export default function Computer({scroll, sizes, terminal, ...props}: { scroll: 
     }), [terminalTexture]);
 
     const controlProps = {
-        computerHeight: 1.5,
+        computerHeight: 1,
         computerAngle: Math.PI * -0.3,
-        computerHorizontal: -5,
+        computerHorizontal: -4.5,
     };
 
     useFrame((state) => {
@@ -68,7 +68,7 @@ export default function Computer({scroll, sizes, terminal, ...props}: { scroll: 
 
         // Position updates from original code
         groupRef.current.position.x = controlProps.computerHorizontal * zoomFac;
-        groupRef.current.position.y = valMap(scroll, [0, 0.15], [0, controlProps.computerHeight]);
+        groupRef.current.position.y = valMap(scroll, [0, 0.15], [0.05, controlProps.computerHeight]);
         groupRef.current.rotation.y = controlProps.computerAngle * zoomFac;
 
         // Portrait mode rotation
