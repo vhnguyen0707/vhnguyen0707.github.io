@@ -39,7 +39,6 @@ export default function HiddenInputHandler({ terminal, isActive }: HiddenInputHa
         terminal.setScrollOffset(Math.max(0, scrollOffset - 1));
       } else if (e.key === 'ArrowUp') {
         const maxScroll = Math.max(0, totalLines - TERMINAL_CONSTANTS.MAX_VISIBLE_LINES); // clamp so we don’t over-scroll
-        console.log('maxScroll:', maxScroll, 'current scrollOffset:', scrollOffset);
         terminal.setScrollOffset(Math.min(maxScroll, scrollOffset + 1));
       } else if (e.key === 'Tab') {
         e.preventDefault();

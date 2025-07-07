@@ -10,7 +10,7 @@ import Technologies from "../components/Technologies.tsx";
 
 const SECTIONS = [
   { id: "about", label: "ABOUT" },
-  { id: "technologies", label: "TECHNOLOGIES" },
+  // { id: "technologies", label: "TECHNOLOGIES" },
   { id: "projects", label: "PROJECTS" },
   { id: "contact", label: "CONTACT" },
 ];
@@ -114,7 +114,7 @@ export default function Homepage() {
       </header>
       <main>
         <About ref={el => (sectionRefs.current["about"] = el)} />
-        <Technologies ref={el => (sectionRefs.current["technologies"] = el)} />
+        {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
         <Projects ref={el => (sectionRefs.current["projects"] = el)} />
         <Contact ref={(el) => (sectionRefs.current["contact"] = el)} />
       </main>

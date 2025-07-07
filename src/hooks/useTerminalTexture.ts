@@ -61,6 +61,9 @@ export default function useTerminalTexture(terminal: TerminalState) {
             ctx.fillText(line, padding, padding + index * lineHeight);
         });
 
+        // console.log('Terminal texture updated:', terminal.displayText);
+        // console.log('visibleLines:', visibleLines);
+
         // Update texture
         texture.needsUpdate = true;
     }, [terminal.displayText]);

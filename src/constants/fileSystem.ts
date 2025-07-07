@@ -120,7 +120,12 @@ export const FileSystem: FileSystemStructure = {
                 }, {})},
             "about.txt": {
                 type: "file",
-                content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                content: "Hi there, I'm Nguyen Vu — a highly motivated full stack software engineer with a B.Sc. in Computing" +
+                    " Science from the University of Alberta (2022). I'm passionate about building innovative, impactful software solutions that blend creativity with function.\n\n" +
+                    "Over the past few years, I've worked on real-world projects that span everything from food delivery platforms to in-game overlay applications — always with a focus on thoughtful user experience and clean system design. " +
+                    "My journey has equipped me with a diverse skill set, from performance optimization and UX improvements to integrating Web3 technologies and leveraging AI tools.\n\n" +
+                    "Outside of work, you'll find me dabbling in new technologies like AI, exploring digital forensics and OSINT for fun," +
+                    " cooking, or dancing."
             },
             "experience.txt": {
                 type: "file",
@@ -128,3 +133,24 @@ export const FileSystem: FileSystemStructure = {
             },
         }},
     };
+
+const wordWrap = (text: string, maxWidth: number): string => {
+    // Split by explicit line breaks first
+    return text.split('\n').map(line => {
+        const words = line.split(' ');
+        const lines: string[] = [];
+        let currentLine = '';
+
+        for (const word of words) {
+            if ((currentLine + (currentLine ? ' ' : '') + word).length <= maxWidth) {
+                currentLine += (currentLine ? ' ' : '') + word;
+            } else {
+                if (currentLine) lines.push(currentLine);
+                currentLine = word;
+            }
+        }
+        if (currentLine) lines.push(currentLine);
+
+        return lines.join('\n');
+    }).join('\n');
+};

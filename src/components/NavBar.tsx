@@ -12,6 +12,8 @@ const navLinks = [
 ];
 
 const NavBar: React.FC = () => {
+    // const zoomLevel = useZoomLevel();
+
     return (
         <header className="navbar">
             <div className="navbar-inner">

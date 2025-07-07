@@ -23,23 +23,25 @@ export interface TerminalState {
     totalLines: number;
 }
 
-// Word wrap function
 const wordWrap = (text: string, maxWidth: number): string => {
-    const words = text.split(' ');
-    const lines: string[] = [];
-    let currentLine = '';
+    // Split by explicit line breaks first
+    return text.split('\n').map(line => {
+        const words = line.split(' ');
+        const lines: string[] = [];
+        let currentLine = '';
 
-    for (const word of words) {
-        if ((currentLine + word).length <= maxWidth) {
-            currentLine += (currentLine ? ' ' : '') + word;
-        } else {
-            if (currentLine) lines.push(currentLine);
-            currentLine = word;
+        for (const word of words) {
+            if ((currentLine + (currentLine ? ' ' : '') + word).length <= maxWidth) {
+                currentLine += (currentLine ? ' ' : '') + word;
+            } else {
+                if (currentLine) lines.push(currentLine);
+                currentLine = word;
+            }
         }
-    }
-    if (currentLine) lines.push(currentLine);
+        if (currentLine) lines.push(currentLine);
 
-    return lines.join('\n');
+        return lines.join('\n');
+    }).join('\n');
 };
 
 export default function useTerminal(): TerminalState {
