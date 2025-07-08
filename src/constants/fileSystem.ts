@@ -12,12 +12,15 @@ import ss41 from '../assets/projects/mobilibrary/ss1.png'
 import ss42 from '../assets/projects/mobilibrary/ss2.png'
 import ss43 from '../assets/projects/mobilibrary/ss3.png'
 import ss51 from '../assets/projects/gomoku/ss1.png'
+import devourgo1 from "../assets/projects/Devour/DevourGO1.png";
+import devourgo2 from "../assets/projects/Devour/DevourGO2.png";
+import devourgo3 from "../assets/projects/Devour/DevourGO3.png";
+import devourgo4 from "../assets/projects/Devour/DevourGO4.png";
+import devourgo5 from "../assets/projects/Devour/DevourGO5.png";
 
+import devourplay1 from "../assets/projects/Devour/DevourPlay1.png";
+import devourplay2 from "../assets/projects/Devour/DevourPlay2.png";
 
-const getId = (()=> {
-    let id = 0;
-    return () => id++;
-})();
 
 interface FileSystemItem {
     type: 'file' | 'directory' | 'link';
@@ -29,7 +32,7 @@ interface FileSystemStructure {
     root: FileSystemItem;
 }
 
-interface Project {
+export interface Project {
     id: number;
     name: string;
     technologies: string[];
@@ -42,7 +45,34 @@ interface Project {
 
 export const projects: Array<Project> = [
     {
-        id: getId(),
+        id: 1,
+        name: "DevourGO - Food Delivery Platform",
+        technologies: ["NodeJS", "React", "TypeScript", "MongoDB", "ExpressJS", "GCP", "Terraform", "Docker"],
+        live: "https://devourgo.io/",
+        demo: "",
+        code: "",
+        images: [devourgo1, devourgo2, devourgo3, devourgo4, devourgo5],
+        summary: "DevourGO is a next-generation food ordering platform that blends traditional delivery services with Web3-powered " +
+            "rewards and gamification. I contributed to the development and maintenance of core features across the admin, merchant, " +
+            "and customer portals. My work spanned both frontend and backend systems, supporting experiences like interactive brand maps, " +
+            "NFT-based reward flows, and on-chain payment integration. The platform offers a seamless and engaging way for users to earn and " +
+            "redeem digital assets while ordering food.",
+    },
+    {
+        id: 2,
+        name: "DevourPlay - In-Game Food Ordering Overlay",
+        technologies: ["JavaScript", "NodeJS", "TypeScript", "Overwolf API"],
+        live: "https://www.overwolf.com/app/devour-devourplay",
+        demo: "https://drive.google.com/file/d/1GLVWcyY7qpk5D0SWG-5KJGz7MsZQtO0h/view?usp=drive_link",
+        code: "",
+        images: [devourplay1, devourplay2],
+        summary: "DevourPlay is a PC gaming overlay app built with Overwolf that lets users order food from DevourGO without " +
+            "leaving their game. I played a key role in integrating DevourGO’s backend with the in-game experience—focusing on " +
+            "real-time data syncing, reward redemption, and gamer-friendly UI components. The app bridges gaming and food delivery" +
+            ", offering a unique and immersive way to enhance gameplay with real-world incentives.",
+    },
+    {
+        id: 3,
         name: 'Where\'s Waldo?',
         technologies: ['React', 'TypeScript', 'TailwindCSS', 'Firebase'],
         live: '',
@@ -52,19 +82,19 @@ export const projects: Array<Project> = [
         summary: 'Photo Tagging Game where players are presented with busy and crowded illustrations to find the hidden objects/characters.'
     },
     {
-        id: getId(),
+        id: 4,
         name: 'FlickPedia',
         technologies: ['MongoDB', 'React', 'NodeJS', 'Express', 'Redux', 'MaterialUI'],
         live: 'https://flickpedia.vercel.app/',
         demo: '',
         code: 'https://github.com/vhnguyen0707/FlickPedia',
         images: [ss11, ss12, ss13],
-        summary: 'An IMDB-inspired platform for entertainment fans to exlore extensive and authorative source for movie, TV, and celebrity content. Users can review and see others\' ratings and reviews for the newest movie and TV shows.'
+        summary: 'An IMDb-inspired platform for entertainment fans to exlore extensive and authorative source for movie, TV, and celebrity content. Users can review and see others\' ratings and reviews for the newest movie and TV shows.'
     },
     {
-        id: getId(),
+        id: 5,
         name: 'The EFCL Financial Proficiency Assessment Tool',
-        technologies: ['DRF', 'PostgreSQL', 'React', 'MaterialUI', 'Jest', 'Docker', 'NGINX', 'Gunicorn'],
+        technologies: ['DRF', 'PostgreSQL', 'React', 'MaterialUI', 'Jest', 'Docker', 'Nginx', 'Gunicorn'],
         live: '',
         demo: 'https://drive.google.com/file/d/1M9ZVnWc5KnsSL1X96Tpyzg6ePj8_dp7c/view',
         code: '',
@@ -72,9 +102,9 @@ export const projects: Array<Project> = [
         summary: 'EFCL\'s Financial Proficiency Assessment Tool streamlines board member evaluations in community associations. With this digital solution, surveys are easily shared, responses automatically compiled, and real-time statistics empower surveyors for advanced analysis, eliminating the need for in-person meetings.'
     },
     {
-        id: getId(),
+        id: 6,
         name: 'Squawker Social Distribution',
-        technologies: ['DRF', 'Django Template', 'SQLite', 'HTML', 'CSS', 'jQuery', 'GithubActions'],
+        technologies: ['DRF', 'Django Template', 'SQLite', 'HTML', 'CSS', 'jQuery'],
         live: '',
         demo: 'https://www.youtube.com/watch?v=1o0HtBtiTNk',
         code: 'https://github.com/vhnguyen0707/social-distribution',
@@ -84,7 +114,7 @@ export const projects: Array<Project> = [
          and interactions such as post sharing, friend adding, likes and comments across all integrated platforms`
     },
     {
-        id: getId(),
+        id: 7,
         name: 'Mobilibrary',
         technologies: ['Java', 'Firebase', 'TravisCI'],
         live: '',
@@ -94,7 +124,7 @@ export const projects: Array<Project> = [
         summary: 'An Android app providing book lovers with a convenient way to borrow and lend books online. The app has built-in ISBN barcode scanner for easy and quick search, adding and returning books, and integrated Google Maps API for scheduling a meet-up.'
     },
     {
-        id: getId(),
+        id: 8,
         name: 'GoMoku',
         technologies: ['Python'],
         live: '',
@@ -133,24 +163,3 @@ export const FileSystem: FileSystemStructure = {
             },
         }},
     };
-
-const wordWrap = (text: string, maxWidth: number): string => {
-    // Split by explicit line breaks first
-    return text.split('\n').map(line => {
-        const words = line.split(' ');
-        const lines: string[] = [];
-        let currentLine = '';
-
-        for (const word of words) {
-            if ((currentLine + (currentLine ? ' ' : '') + word).length <= maxWidth) {
-                currentLine += (currentLine ? ' ' : '') + word;
-            } else {
-                if (currentLine) lines.push(currentLine);
-                currentLine = word;
-            }
-        }
-        if (currentLine) lines.push(currentLine);
-
-        return lines.join('\n');
-    }).join('\n');
-};

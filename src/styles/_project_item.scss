@@ -1,0 +1,120 @@
+.homepage_projects_item {
+  display: grid;
+  padding: 0.75rem;
+  grid-template-areas:
+    "name"
+    "images"
+    "metadata"
+    "desc"
+  ;
+  gap: 0.75rem;
+
+  @media (min-width: 90rem) {
+    grid-template-areas:
+            "name name"
+            "images metadata"
+            "desc desc";
+    grid-template-columns: 60% 40%;
+    gap: 2rem 1rem;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 1.25rem;
+  }
+  &_name {
+    grid-area: name;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &_metadata {
+    grid-area: metadata;
+
+    h4 {
+      margin: 0 0 0.35rem;
+      color: #F59E0B;
+    }
+
+    &_row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+
+      &:first-of-type {
+        margin-bottom: 1.25rem;
+      }
+      .chip {
+        padding: 0.25rem 1rem;
+        border-radius: 1rem;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.1s ease;
+
+        &.chip:hover {
+          opacity: 0.9;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  &_desc {
+    grid-area: desc;
+  }
+
+  &_images {
+    grid-area: images;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0.625rem;
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      i {
+        font-size: 1.5rem;
+        color: #e2e8f0;
+      }
+
+      &:disabled i {
+        color: #64748b;
+      }
+
+      &.prev {
+        left: 0.75rem;
+      }
+      &.next {
+        right: 0.75rem;
+      }
+    }
+
+    .images_carousel {
+      display: flex;
+      height: fit-content;
+      overflow-y: auto;
+      @extend .hide-scrollbar;
+
+      &_item {
+        flex-shrink: 0;
+        width: 100%;
+        height: 18.75rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+    }
+  }
+}
+

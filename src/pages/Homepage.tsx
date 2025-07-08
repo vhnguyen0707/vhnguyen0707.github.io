@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, forwardRef } from "react";
-import WebGLCanvas from "../components/webgl/WebGLCanvas.tsx";
+import WebGLCanvas from "../components/webgl/WebGLCanvas";
 import classNames from "classnames";
-import About from "../components/About.tsx";
-import Projects from "../components/Projects.tsx";
-import Contact from "../components/Contact.tsx";
-import { useZoomLevel } from "../hooks/useZoomLevel.ts";
-import Technologies from "../components/Technologies.tsx";
+import About from "../components/About";
+import Projects from "../components/Projects";
+import Contact from "../components/Contact";
+import { useZoomLevel } from "../hooks/useZoomLevel";
+import {isDesktop} from "react-device-detect";
 
 
 const SECTIONS = [
@@ -85,39 +85,44 @@ export default function Homepage() {
 
   return (
     <div className="homepage">
-      <WebGLCanvas />
-      <header className={classNames("homepage_header", { zoomed: isZoomed })}>
-        <div>
-          <h1>Nguyen Vu</h1>
-          <h2>Full Stack Software Engineer</h2>
-          <nav>
-            <ul>
-              {SECTIONS.map((section) => (
-                <li
-                  key={section.id}
-                  className={classNames("homepage_nav-item", {
-                    active: activeSection === section.id,
-                  })}
-                >
-                  <a href={`#${section.id}`}>
-                    <span />
-                    {section.label}
-                  </a>
-                </li>
-              ))}
-              <li>
-                <a href="/resume">RESUME</a>
-              </li>
-            </ul>
-          </nav>
+        {isDesktop && <WebGLCanvas />}
+        <div className={classNames("homepage_content", {zoomed: isZoomed, "is-desktop": isDesktop})}>
+            <header className={classNames("homepage_header", {zoomed: isZoomed})}>
+                <div>
+                    <h1>Nguyen Vu</h1>
+                    <h2>Full Stack Software Engineer</h2>
+                    <nav>
+                        <ul>
+                            {SECTIONS.map((section) => (
+                                <li
+                                    key={section.id}
+                                    className={classNames("homepage_nav-item", {
+                                        active: activeSection === section.id,
+                                    })}
+                                >
+                                    <a onClick={() => sectionRefs.current[section.id]?.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                    })}>
+                                        <span/>
+                                        {section.label}
+                                    </a>
+                                </li>
+                            ))}
+                            <li>
+                                <a href="/resume">RESUME</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <main>
+                <About ref={el => (sectionRefs.current["about"] = el)}/>
+                {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
+                <Projects ref={el => (sectionRefs.current["projects"] = el)}/>
+                <Contact ref={(el) => (sectionRefs.current["contact"] = el)}/>
+            </main>
         </div>
-      </header>
-      <main>
-        <About ref={el => (sectionRefs.current["about"] = el)} />
-        {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
-        <Projects ref={el => (sectionRefs.current["projects"] = el)} />
-        <Contact ref={(el) => (sectionRefs.current["contact"] = el)} />
-      </main>
     </div>
   );
 }

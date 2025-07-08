@@ -6,6 +6,8 @@ import {type Sizes, valMap} from "./WebGLCanvas";
 import type {GLTF} from "three/examples/jsm/loaders/GLTFLoader";
 import useTerminalTexture from "../../hooks/useTerminalTexture";
 import type {TerminalState} from "../../hooks/useTerminal";
+import useWindowSize from "../../hooks/useWindowSize";
+import { LARGER_SCREEN_WIDTH } from "../../common/MainLayout";
 
 const RetroScreenShader = {
     vertexShader: `
@@ -40,6 +42,7 @@ export default function Computer({scroll, sizes, terminal, ...props}: { scroll: 
     const groupRef = useRef<THREE.Group>(null);
     const timeRef = useRef<number>(0);
     const screenMaterialRef = useRef<THREE.ShaderMaterial>(null);
+    const isLargeDesktop = useWindowSize()[0] > LARGER_SCREEN_WIDTH;
     const terminalTexture = useTerminalTexture(terminal);
     const screenMaterial = useMemo(() => new THREE.ShaderMaterial({
         vertexShader: RetroScreenShader.vertexShader,
@@ -53,10 +56,9 @@ export default function Computer({scroll, sizes, terminal, ...props}: { scroll: 
 
     const controlProps = {
         computerHeight: 1,
-        computerAngle: Math.PI * -0.3,
-        computerHorizontal: -4.5,
+        computerAngle: Math.PI * (isLargeDesktop ? -0.3 : -0.2),
+        computerHorizontal: isLargeDesktop ? -4.5 : -1,
     };
-
     useFrame((state) => {
         if (!groupRef.current) return;
         timeRef.current = state.clock.elapsedTime;

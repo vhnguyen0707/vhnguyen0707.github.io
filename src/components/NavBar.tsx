@@ -1,19 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useZoomLevel } from '../hooks/useZoomLevel';
+import MobileNav from './MobileNav';
 // import MobileNav from './MobileNav'; // Adjust the import path if needed
 
-const navLinks = [
-    { title: 'About', href: '/#about' },
-    { title: 'Projects', href: '/#projects' },
-    { title: 'Contact', href: '/#contact' },
+export const navLinks = [
+    { title: 'About', href: '/#about', id: "about"},
+    { title: 'Projects', href: '/#projects', id: "projects" },
+    { title: 'Contact', href: '/#contact', id: "contact" },
     { title: 'Resume', href: '/resume' },
 ];
 
 const NavBar: React.FC = () => {
-    // const zoomLevel = useZoomLevel();
-
     return (
         <header className="navbar">
             <div className="navbar-inner">
@@ -21,12 +19,12 @@ const NavBar: React.FC = () => {
                     <span className="navbar-logo">Nguyen Vu</span>
                 </Link>
                 <div className="navbar-right">
-                    {/*<MobileNav />*/}
+                    <MobileNav />
                     <nav>
                         <ul className="navbar-links">
                             {navLinks.map((link) => (
                                 <li key={link.title} className="navbar-link">
-                                    <HashLink to={link.href}>{link.title}</HashLink>
+                                    <HashLink smooth to={link.href}>{link.title}</HashLink>
                                 </li>
                             ))}
                         </ul>
