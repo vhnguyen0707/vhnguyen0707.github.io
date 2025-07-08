@@ -12,7 +12,7 @@ export default function MainLayout({showNavBar}: {showNavBar?: boolean}) {
     const showNavBarDefault = showNavBar || isMobile || screenWidth <= LARGER_SCREEN_WIDTH ; // Show NavBar by default on larger screens
 
     return <div className="main-layout">
-        {/*<ScrollRestoration />*/}
+        <ScrollRestoration />
         <Background />
         <div className="main-layout_content">
             {/* NAVBAR*/}

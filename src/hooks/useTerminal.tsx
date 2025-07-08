@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo} from "react";
+import {useEffect, useState} from "react";
 import {FileSystem} from "../constants/fileSystem";
 import {TERMINAL_CONSTANTS} from "../components/webgl/constants";
 
@@ -52,7 +52,6 @@ export default function useTerminal(): TerminalState {
     const [blinker, setBlinker] = useState<Blinker>({index: 0, time: Date.now() * 0.001});
     const [bootTime, setBootTime] = useState<number>(0);
     const [isBooting, setIsBooting] = useState<boolean>(true);
-    const [blinkState, setBlinkState] = useState<boolean>(true);
 
     // Boot sequence
     useEffect(() => {
@@ -69,14 +68,6 @@ export default function useTerminal(): TerminalState {
             clearInterval(interval);
             clearTimeout(bootTimeout);
         };
-    }, []);
-
-    // Cursor blink animation
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBlinkState(prev => !prev);
-        }, 500);
-        return () => clearInterval(interval);
     }, []);
 
     // Generate boot sequence text

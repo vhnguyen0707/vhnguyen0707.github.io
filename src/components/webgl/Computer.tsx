@@ -3,7 +3,6 @@ import {type JSX, useMemo, useRef} from "react";
 import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 import {type Sizes, valMap} from "./WebGLCanvas";
-import type {GLTF} from "three/examples/jsm/loaders/GLTFLoader";
 import useTerminalTexture from "../../hooks/useTerminalTexture";
 import type {TerminalState} from "../../hooks/useTerminal";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -38,7 +37,8 @@ const RetroScreenShader = {
 };
 
 export default function Computer({scroll, sizes, terminal, ...props}: { scroll: number, sizes: Sizes, terminal: TerminalState } & JSX.IntrinsicElements['group']) {
-    const {nodes} = useGLTF("model/computer.glb") as GLTF;
+    const gltf = useGLTF("model/computer.glb");
+    const nodes = gltf.nodes as Record<string, THREE.Mesh>;
     const groupRef = useRef<THREE.Group>(null);
     const timeRef = useRef<number>(0);
     const screenMaterialRef = useRef<THREE.ShaderMaterial>(null);
