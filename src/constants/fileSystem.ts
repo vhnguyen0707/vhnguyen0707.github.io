@@ -55,7 +55,7 @@ export const projects: Array<Project> = [
         summary: "DevourGO is a next-generation food ordering platform that blends traditional delivery services with Web3-powered " +
             "rewards and gamification. I contributed to the development and maintenance of core features across the admin, merchant, " +
             "and customer portals. My work spanned both frontend and backend systems, supporting experiences like interactive brand maps, " +
-            "NFT-based reward flows, and on-chain payment integration. The platform offers a seamless and engaging way for users to earn and " +
+            "community and guild leaderboars NFT-based reward flows, and on-chain payment integration. The platform offers a seamless and engaging way for users to earn and " +
             "redeem digital assets while ordering food.",
     },
     {
@@ -147,7 +147,7 @@ export const FileSystem: FileSystemStructure = {
                         content: project.summary,
                     };
                     return acc;
-                }, {})},
+                }, {} as Record<string, FileSystemItem>)},
             "about.txt": {
                 type: "file",
                 content: "Hi there, I'm Nguyen Vu — a highly motivated full stack software engineer with a B.Sc. in Computing" +

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, forwardRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import WebGLCanvas from "../components/webgl/WebGLCanvas";
 import classNames from "classnames";
 import About from "../components/About";
@@ -9,120 +9,138 @@ import {isDesktop} from "react-device-detect";
 
 
 const SECTIONS = [
-  { id: "about", label: "ABOUT" },
-  // { id: "technologies", label: "TECHNOLOGIES" },
-  { id: "projects", label: "PROJECTS" },
-  { id: "contact", label: "CONTACT" },
+    { id: "about", label: "ABOUT" },
+    // { id: "technologies", label: "TECHNOLOGIES" },
+    { id: "projects", label: "PROJECTS" },
+    { id: "contact", label: "CONTACT" },
 ];
 
 export default function Homepage() {
-  const isZoomed = useZoomLevel();
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({
-    about: null,
-    technologies: null,
-    projects: null,
-    contact: null,
-  });
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-        (entries) => {
-          // Check if we're at the very top (before any sections)
-          const scrollY = window.scrollY;
-          const windowHeight = window.innerHeight;
-
-          // If we're in the top 20% of the viewport, clear active section
-          if (scrollY < windowHeight * 0.2) {
-            setActiveSection(null);
-            return;
-          }
-
-          // Find the section with the highest intersection ratio
-          let maxRatio = 0;
-          let mostVisible: string | null = null;
-
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-              maxRatio = entry.intersectionRatio;
-              mostVisible = entry.target.id;
-            }
-          });
-
-          // Only update if we found a section with decent visibility
-          if (mostVisible && maxRatio > 0.1) {
-            setActiveSection(mostVisible);
-          }
-        },
-        {
-          threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-          rootMargin: '-10% 0px -10% 0px' // This helps with detection at viewport edges
-        }
-    );
-
-    // Also add a scroll listener for the top detection
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      if (scrollY < windowHeight * 0.2) {
-        setActiveSection(null);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    SECTIONS.forEach(({ id }) => {
-      const el = sectionRefs.current[id];
-      if (el) observer.observe(el);
+    const isZoomed = useZoomLevel();
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+    const sectionRefs = useRef<Record<string, HTMLElement | null>>({
+        about: null,
+        technologies: null,
+        projects: null,
+        contact: null,
     });
 
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    useEffect(() => {
+        const handleScroll = () => {
+            const bufferTop = window.innerHeight * 0.15;
+            const scrollY = window.scrollY;
 
-  return (
-    <div className="homepage">
-        {isDesktop && <WebGLCanvas />}
-        <div className={classNames("homepage_content", {zoomed: isZoomed, "is-desktop": isDesktop})}>
-            <header className={classNames("homepage_header", {zoomed: isZoomed})}>
-                <div>
-                    <h1>Nguyen Vu</h1>
-                    <h2>Full Stack Software Engineer</h2>
-                    <nav>
-                        <ul>
-                            {SECTIONS.map((section) => (
-                                <li
-                                    key={section.id}
-                                    className={classNames("homepage_nav-item", {
-                                        active: activeSection === section.id,
-                                    })}
-                                >
-                                    <a onClick={() => sectionRefs.current[section.id]?.scrollIntoView({
-                                        behavior: "smooth",
-                                        block: "start",
-                                    })}>
-                                        <span/>
-                                        {section.label}
-                                    </a>
+            if (scrollY < bufferTop) {
+                setActiveSection(null);
+                return;
+            }
+
+            let currentSection: string | null = null;
+            let maxScore = 0;
+
+            for (const section of SECTIONS) {
+                const el = sectionRefs.current[section.id];
+                if (!el) continue;
+
+                const rect = el.getBoundingClientRect();
+                const elementTop = rect.top;
+                const elementBottom = rect.bottom;
+                const elementHeight = rect.height;
+
+                if (elementBottom < 0 || elementTop > window.innerHeight) {
+                    continue;
+                }
+
+                const visibleTop = Math.max(elementTop, 0);
+                const visibleBottom = Math.min(elementBottom, window.innerHeight);
+                const visibleHeight = Math.max(visibleBottom - visibleTop, 0);
+                const visibilityRatio = visibleHeight / elementHeight;
+
+                const centerY = elementTop + elementHeight / 2;
+                const viewportCenter = window.innerHeight / 2;
+                const distanceFromCenter = Math.abs(centerY - viewportCenter);
+                const maxDistance = window.innerHeight / 2 + elementHeight / 2;
+                const positionScore = 1 - (distanceFromCenter / maxDistance);
+
+                let topBottomBonus = 0;
+                if (elementTop <= 50 && elementTop >= -50) {
+                    topBottomBonus = 0.5;
+                } else if (elementBottom >= window.innerHeight - 50 && elementBottom <= window.innerHeight + 50) {
+                    topBottomBonus = 0.3;
+                }
+
+                if (section.id === SECTIONS[SECTIONS.length - 1].id) {
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const windowBottom = window.scrollY + window.innerHeight;
+                    const isNearBottom = windowBottom >= documentHeight - 100;
+
+                    if (isNearBottom && visibilityRatio > 0.1) {
+                        topBottomBonus = 1;
+                    }
+                }
+
+                const score = visibilityRatio * 0.6 + positionScore * 0.3 + topBottomBonus;
+
+                if (score > maxScore) {
+                    maxScore = score;
+                    currentSection = section.id;
+                }
+            }
+
+            setActiveSection((prev) =>
+                prev !== currentSection ? currentSection : prev
+            );
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        window.addEventListener("resize", handleScroll);
+        handleScroll();
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
+        };
+    }, []);
+    return (
+        <div className="homepage">
+            {isDesktop && <WebGLCanvas />}
+            <div className={classNames("homepage_content", {zoomed: isZoomed, "is-desktop": isDesktop})}>
+                <header className={classNames("homepage_header", {zoomed: isZoomed})}>
+                    <div>
+                        <h1>Nguyen Vu</h1>
+                        <h2>Full Stack Software Engineer</h2>
+                        <nav>
+                            <ul>
+                                {SECTIONS.map((section) => (
+                                    <li
+                                        key={section.id}
+                                        className={classNames("homepage_nav-item", {
+                                            active: activeSection === section.id,
+                                        })}
+                                    >
+                                        <a onClick={() => sectionRefs.current[section.id]?.scrollIntoView({
+                                            behavior: "smooth",
+                                            block: "start",
+                                        })}>
+                                            <span/>
+                                            {section.label}
+                                        </a>
+                                    </li>
+                                ))}
+                                <li>
+                                    <a href="/resume">RESUME</a>
                                 </li>
-                            ))}
-                            <li>
-                                <a href="/resume">RESUME</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-            <main>
-                <About ref={el => (sectionRefs.current["about"] = el)}/>
-                {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
-                <Projects ref={el => (sectionRefs.current["projects"] = el)}/>
-                <Contact ref={(el) => (sectionRefs.current["contact"] = el)}/>
-            </main>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
+                <main>
+                    <About ref={el => {sectionRefs.current["about"] = el}}/>
+                    {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
+                    <Projects ref={el => {sectionRefs.current["projects"] = el}}/>
+                    <Contact ref={(el) => {sectionRefs.current["contact"] = el}}/>
+                </main>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
