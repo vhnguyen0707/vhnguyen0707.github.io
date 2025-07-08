@@ -1,51 +1,54 @@
-import React from 'react'
-import { fe, be, frameworks, others } from '../pages/constants'
+import { forwardRef } from "react";
 
+const About = forwardRef<HTMLElement>((_, ref) => (
+    <section
+        id="about"
+        ref={ref}
+        className="homepage_section homepage_about"
+    >
+        <h1>About</h1>
+        <hr/>
+        <div>
+            Hi there, I'm Nguyen Vu — a highly motivated full stack software engineer with a B.Sc. in Computing Science
+            from the University of Alberta (2022). I'm passionate about building innovative, impactful software
+            solutions that blend creativity with function.
+            <br/>
+            <br/>
+            Over the couple of years, I've worked on real-world projects that span everything from food delivery
+            platforms to in-game overlay applications, always with a focus on thoughtful user experience and clean
+            system design.
+            My journey has equipped me with a diverse skill set, from performance optimization and UX improvements
+            to integrating Web3 technologies and leveraging AI tools.
+            <br />
+            <br />
+            I thrive in collaborative environments, and I take pride in being a supportive team member — someone who’s always willing
+            to share knowledge, mentor junior developers, and help unblock teammates. I believe the best products come from open
+            communication and shared curiosity.
+            <br/>
+            <br/>
+            Outside of work, you'll find me dabbling in new technologies like AI, exploring digital forensics and OSINT
+            for fun,
+            cooking, or dancing. I'm deeply curious — about how things work and how to make them better — and I bring
+            that
+            curiosity into everything I build.
 
-const About:React.FC = () => {
-    console.log(fe,be)
-  return (
-    <section id="about" className='w-full'>
-        <div className="px-4 border-2 border-white/30 rounded-lg w-full py-2 mx-auto flex flex-col gap-5">
-        <h3 className='text-[30px] font-bold'>Skills</h3>
-        <div className='flex flex-wrap gap-6 md:gap-8 justify-center'>
-          {fe.map(skill => (
-            <div key={skill.id} className='flex flex-col items-center font-sans gap-2'>
-              <img src={skill.pic} alt={`${skill.name} logo`} className='w-10 h-10'/>
-              {skill.name}
-            </div>
-          ))}
+            <br/>
+            <br/>
+            Here are a few technologies I’ve been working with recently:
+            <ul className="homepage_about_technologies">
+                <li>JavaScript (ES6+)</li>
+                <li>TypeScript</li>
+                <li>React</li>
+                <li>Node.js</li>
+                <li>Python</li>
+                <li>DRF</li>
+                <li>MongoDB</li>
+                <li>PostgreSQL</li>
+                <li>GCP</li>
+                <li>Docker</li>
+            </ul>
         </div>
-        <hr />
-        <div className='flex flex-wrap gap-6 md:gap-8 justify-center'>
-          {be.map(skill => (
-            <div key={skill.id} className='flex flex-col items-center font-sans gap-2'>
-              <img src={skill.pic} alt={`${skill.name} logo`} className='w-10 h-10'/>
-              {skill.name}
-            </div>
-          ))}
-        </div>
-        <hr />
-        <div className='flex flex-wrap gap-6 md:gap-8 justify-center'>
-          {frameworks.map(skill => (
-            <div key={skill.id} className='flex flex-col items-center font-sans gap-2'>
-              <img src={skill.pic} alt={`${skill.name} logo`} className='w-10 h-10'/>
-              {skill.name}
-            </div>
-          ))}
-        </div>
-        <hr />
-        <div className='flex flex-wrap gap-6 md:gap-8 justify-center'>
-          {others.map(skill => (
-            <div key={skill.id} className='flex flex-col items-center font-sans gap-2'>
-              <img src={skill.pic} alt={`${skill.name} logo`} className='w-10 h-10'/>
-              {skill.name}
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
-  )
-}
+));
 
-export default About
+export default About;

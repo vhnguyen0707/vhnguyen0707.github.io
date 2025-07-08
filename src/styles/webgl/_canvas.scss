@@ -1,0 +1,37 @@
+.computer-canvas {
+  &_terminal-status {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+
+  &_loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    p {
+      font-size: 0.875rem;
+      color: #F1F1F1;
+      font-weight: 800;
+      margin-top: 2.5rem;
+    }
+  }
+
+  &_hidden-input {
+    position: fixed;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: all;
+    width: 0;
+    height: 0;
+  }
+}

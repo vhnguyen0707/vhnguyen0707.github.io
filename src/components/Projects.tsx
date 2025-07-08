@@ -1,15 +1,18 @@
-import React from 'react'
-import { projects } from './constants'
-import ProjectItem from './ProjectItem'
-const Projects:React.FC = () => {
-  return (
-    <div id="projects">
-      <h1 className='text-[30px] font-bold'>Projects</h1>
-      {projects.map(project => (
-        <ProjectItem key={project.id} project={project} />
-      ))}
-    </div>
-  )
-}
+import { forwardRef } from "react";
+import {projects} from "../constants/fileSystem";
+import ProjectItem from "./ProjectItem";
 
-export default Projects
+const Projects = forwardRef<HTMLElement>((_, ref) => (
+    <section
+        id="projects"
+        ref={ref}
+        // style={{height: "80vh"}}
+        className="homepage_section homepage_projects"
+    >
+        <h1>Projects</h1>
+        <hr/>
+        {projects.map(project => <ProjectItem project={project} key={project.id}/>)}
+    </section>
+));
+
+export default Projects;

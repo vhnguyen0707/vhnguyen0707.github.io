@@ -20,7 +20,7 @@ const Background:React.FC = () => {
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5);
         const renderer= new THREE.WebGLRenderer({canvas: canvasRef.current});
         renderer.setClearColor(new THREE.Color("#21262d"));
-        
+
         const light = new THREE.DirectionalLight();
         light.position.set(-1, 2, 4);
         scene.add(light);
@@ -49,7 +49,7 @@ const Background:React.FC = () => {
                 size: 0.1,
                 map: loader.load(star2),
                 transparent: true,
-              }),
+            }),
         ]
         const starsSet1 = new THREE.Points(geometries[0], materials[0]);
         const starsSet2 = new THREE.Points(geometries[1], materials[1]);
@@ -61,27 +61,27 @@ const Background:React.FC = () => {
             const canvas = renderer.domElement;
             const width = canvas.clientWidth;
             const height = canvas.clientHeight;
-      
+
             const resizeNeeded = canvas.width !== width || canvas.height !== height;
-      
+
             if (resizeNeeded) {
-              renderer.setSize(width, height, false);
-              camera.aspect = canvas.clientWidth / canvas.clientHeight;
-              camera.updateProjectionMatrix();
+                renderer.setSize(width, height, false);
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
             }
-      
+
             const [x, y] = [mouseX * 0.0005, mouseY * -0.0005];
-      
+
             starsSet1.position.x = x;
             starsSet1.position.y = y;
-      
+
             starsSet2.position.x = x;
             starsSet2.position.y = y;
-      
+
             renderer.render(scene, camera);
             requestAnimationFrame(render);
-          }
-      
+        }
+
         requestAnimationFrame(render);
         const handleMouseMove = (e:MouseEvent) => {
             [mouseX, mouseY] = [e.clientX, e.clientY];
@@ -99,7 +99,7 @@ const Background:React.FC = () => {
             document.removeEventListener('mousemove', handleMouseMove)
         }
     }, [])
-  return <canvas ref={canvasRef} className='fixed w-full h-full'/>
+    return <canvas ref={canvasRef} className='background'/>
 }
 
 export default Background

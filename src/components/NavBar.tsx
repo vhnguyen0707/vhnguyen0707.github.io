@@ -1,37 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import MobileNav from './MobileNav';
-import navLinks from '../common/constants';
-import { HashLink } from 'react-router-hash-link';
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import MobileNav from "./MobileNav";
 
+export const navLinks = [
+    { title: "About", href: "/#about"},
+    { title: "Experiences", href: "/#experiences"},
+    { title: "Projects", href: "/#projects"},
+    { title: "Contact", href: "/#contact" },
+    { title: "Resume", href: "/resume" },
+];
 
-
-const NavBar:React.FC = () => {
-    //     const [loaded, setLoaded] = useState(false);
-
-    // useEffect(() => setLoaded(true), []);
-
+export default function NavBar() {
     return (
-        <header className='fixed top-0 z-50 w-full bg-gradient-to-b from-primary/40 to-transparent backdrop-blur-sm h-[50px] px-8 -sm:px-6 py-6 flex items-center'>
-            <div className='flex justify-between w-full'>
-                <Link to={'/'}><span className='text-2xl font-bold'>Nguyen Vu</span></Link>
-                <div className='flex items-center transition-opacity duration-700'>
+        <header className="navbar">
+            <div className="navbar-inner">
+                <Link to="/" className="navbar-logo-link">
+                    <span className="navbar-logo">Nguyen Vu</span>
+                </Link>
+                <div className="navbar-right">
                     <MobileNav />
                     <nav>
-                        <ul className='flex items-center justify-around gap-3 -sm:hidden'>
+                        <ul className="navbar-links">
                             {navLinks.map((link) => (
-                                <li key={link.title} className="link">
-                                    <HashLink to={link.href}>{link.title}</HashLink>
-                                    {/* {link.title!== 'Resume' ? <a href={link.href}>{link.title}</a> : <Link to={link.href}>{link.title}</Link>} */}
+                                <li key={link.title} className="navbar-link">
+                                    <HashLink smooth to={link.href}>{link.title}</HashLink>
                                 </li>
                             ))}
                         </ul>
-
                     </nav>
                 </div>
             </div>
         </header>
-    )
-}
-
-export default NavBar
+    );
+};

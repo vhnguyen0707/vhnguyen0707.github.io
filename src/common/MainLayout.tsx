@@ -1,20 +1,25 @@
-import { Outlet } from 'react-router-dom';
-import React from 'react';
-import NavBar from '../components/NavBar';
-import StarsScene from './Background';
+import { Outlet } from "react-router-dom";
+import Background from "./Background.tsx";
+import NavBar from "../components/NavBar";
+import {ScrollRestoration} from "react-router";
+import {isMobile} from "react-device-detect";
+import useWindowSize from "../hooks/useWindowSize";
 
-const MainLayout:React.FC = () => {
-  return (
-    <div className='text-white'>
-      <StarsScene />
-      <div className='absolute w-full h-full flex flex-col justify-between'>
-        <NavBar />
-        <div className='grow flex flex-col gap-14 px-8 w-full max-w-[1440px] mx-auto pt-12'>
-          <Outlet />
+export const LARGER_SCREEN_WIDTH = 1024; // Define a constant for larger screen width
+
+export default function MainLayout({showNavBar}: {showNavBar?: boolean}) {
+    const screenWidth = useWindowSize()[0];
+    const showNavBarDefault = showNavBar || isMobile || screenWidth <= LARGER_SCREEN_WIDTH ; // Show NavBar by default on larger screens
+
+    return <div className="main-layout">
+        {/*<ScrollRestoration />*/}
+        <Background />
+        <div className="main-layout_content">
+            {/* NAVBAR*/}
+            {showNavBarDefault && <NavBar />}
+            <div className="main-layout_content_inner">
+                <Outlet />
+            </div>
         </div>
-      </div>
     </div>
-  )
 }
-
-export default MainLayout
