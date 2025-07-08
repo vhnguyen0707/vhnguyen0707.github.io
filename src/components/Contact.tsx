@@ -4,12 +4,12 @@ const Contact = forwardRef<HTMLElement>((_, ref) => (
     <section
         id="contact"
         ref={ref}
-        className="homepage_section homepage_contact"
+        className="homepage_contact"
     >
-        <h1 className="homepage_contact_title">Contact</h1>
-        <hr/>
+        {/*<h1 className="homepage_contact_title">Contact</h1>*/}
+        {/*<hr/>*/}
         <p className="homepage_contact_description">
-            Excited to connect and see how we can build something great together 😊
+            Excited to connect and see how we can build something great together 😊!
         </p>
         <div className="homepage_contact_icons">
             <a href="https://www.linkedin.com/in/nguyen-vu-50b6b7224/" target="_blank" rel="noopener noreferrer">

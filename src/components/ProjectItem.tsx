@@ -10,8 +10,8 @@ export default function ProjectItem({project}: {project: Project}) {
         <div className="homepage_projects_item_metadata">
             <h4>Links:</h4>
             <div className="homepage_projects_item_metadata_row">
-                {project.live && <a href={project.live} target="_blank" className="chip">🚀 Live Preview</a>}
-                {project.demo && <a href={project.demo} target="_blank" className="chip">🎥 Demo Video</a>}
+                {project.live && <a href={project.live} target="_blank" className="chip">🚀 Live</a>}
+                {project.demo && <a href={project.demo} target="_blank" className="chip">🎥 Demo</a>}
                 {project.code && <a href={project.code} target="_blank" className="chip">💻 Source Code</a>}
             </div>
 

@@ -1,14 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
-import MobileNav from './MobileNav';
-// import MobileNav from './MobileNav'; // Adjust the import path if needed
+import React from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import MobileNav from "./MobileNav";
+// import MobileNav from "./MobileNav"; // Adjust the import path if needed
 
 export const navLinks = [
-    { title: 'About', href: '/#about', id: "about"},
-    { title: 'Projects', href: '/#projects', id: "projects" },
-    { title: 'Contact', href: '/#contact', id: "contact" },
-    { title: 'Resume', href: '/resume' },
+    { title: "About", href: "/#about"},
+    { title: "Experiences", href: "/#experiences"},
+    { title: "Projects", href: "/#projects"},
+    { title: "Contact", href: "/#contact" },
+    { title: "Resume", href: "/resume" },
 ];
 
 const NavBar: React.FC = () => {

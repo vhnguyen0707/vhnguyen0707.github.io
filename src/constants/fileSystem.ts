@@ -77,7 +77,7 @@ export const projects: Array<Project> = [
         technologies: ['React', 'TypeScript', 'TailwindCSS', 'Firebase'],
         live: '',
         demo: '',
-        code: '',
+        code: 'https://github.com/vhnguyen0707/wheres-waldo',
         images: [ss01],
         summary: 'Photo Tagging Game where players are presented with busy and crowded illustrations to find the hidden objects/characters.'
     },
@@ -135,6 +135,71 @@ export const projects: Array<Project> = [
     }
 ]
 
+export interface Experience {
+    id: number,
+    time: string;
+    title: string;
+    company: string;
+    location: string;
+    description: string;
+}
+export const experiences: Array<Experience> = [
+    {
+        id: 1,
+        time: "October 2023 - May 2025",
+        company: "Devour Next Canada Inc.",
+        title: "Fullstack Software Engineer",
+        location: "Vancouver, British Columbia, Canada",
+        description: "• Developed and maintained key features across admin, merchant, and customer portals of DevourGO app, including Checkout and " +
+            "Promotional Brand Maps, significantly enhancing user experience and platform functionality.\n" +
+            "• Key team member responsible for the redesign and implementation of the DevourGO side of DevourPlay, an innovative " +
+            "in-game overlay app leveraging the Overwolf API, driving 20% user growth and increasing daily active engagement by 40%, " +
+            "allowing seamless rewards redemption and food ordering in the game.\n" +
+            "• Enhanced system reliability by extending SimpleHash webhook API response handling, implementing cron jobs via GCP Cloud " +
+            "Scheduler to efficiently manage digital NFT ownership transfer tracking and error recovery.\n" +
+            "• Developed robust on-chain payment processing solutions utilizing ETH and Solana’s FUELX cryptocurrency, significantly " +
+            "improving transaction efficiency and platform scalability.\n" +
+            "• Improved performance by refining MongoDB aggregation pipelines and front-end data fetching processes, reducing page load times " +
+            "by approximately 35%.\n" +
+            "• Monitored system performance using GCP, rapidly addressing critical alerts and proactively resolving software issues, maintaining " +
+            "a 99.9% application uptime SLA to ensure continuous platform availability.\n" +
+            "• Created automated test suites using Jest and Playwright, improving error detection, reducing bugs, and increasing development " +
+            "efficiency.\n" +
+            "• Led technical execution for major platform features including Blockchain Reward Redemption, Gaming Guild integrations, and " +
+            "Embeddable Widgets, optimizing database architecture and enhancing API performance with ExpressJS.\n" +
+            "• Technologies: MongoDB, ReactJS, NodeJS, ExpressJS, TypeScript, Docker, GCP, Terraform."
+    },
+    {
+        id: 2,
+        time: "July 2022 - March 2023",
+        company: "SIC Education",
+        title: "System Analyst Intern",
+        location: "Hanoi, Vietnam",
+        description: "• Developed and launched a comprehensive MongoDB, Express, React, and Node (MERN) stack application for efficient schedule " +
+            "and payroll management, significantly increasing productivity by 40% and reducing manual data entry errors by 30%.\n" +
+            "• Delivered timely and effective technical support, including troubleshooting and maintenance of IT hardware, enhancing overall " +
+            "operational reliability.\n" +
+            "• Conducted in-depth system analysis, implemented robust software solutions, and optimized data processes, ensuring consistent " +
+            "system reliability, accurate data management, and high user satisfaction.\n" +
+            "• Technologies: MongoDB, ReactJS, NodeJS, ExpressJS."
+    },
+    {
+        id: 3,
+        time: "2021 - 2022",
+        company: "University of Alberta",
+        title: "Teaching Assistant & Software Developer",
+        location: "Edmonton, Alberta, Canada",
+        description: "• Developed and maintained websites, implementing front-end features and automated data scraping solutions with Python, " +
+            "resulting in a 50% reduction in data processing time for research teams.\n" +
+            "• Built a full-stack application supporting seamless CRUD operations for research inventory management, enhancing efficiency and " +
+            "data management capabilities.\n" +
+            "• Designed and implemented a Covid check-in system using Google Apps Script to automate daily data reporting to lab managers, " +
+            "significantly streamlining lab management processes.\n" +
+            "• Managed lab setups, assignment grading, and provided direct student support, facilitating learning outcomes and student success.\n" +
+            "• Technologies: Django, PostgreSQL, SQLite, ReactJS."
+    },
+]
+
 export const FileSystem: FileSystemStructure = {
     "root": {
         type: "directory",
@@ -142,12 +207,23 @@ export const FileSystem: FileSystemStructure = {
             "projects": {
                 type: "directory",
                 contents: projects.reduce((acc, project) => {
-                    acc[`${project.name.split(" ").join("_")}`] = {
+                    acc[`${project.name.split(" ").join("_")}.txt`] = {
                         type: "file",
                         content: project.summary,
                     };
                     return acc;
-                }, {} as Record<string, FileSystemItem>)},
+                }, {} as Record<string, FileSystemItem>)
+            },
+            "experiences": {
+                type: "directory",
+                contents: experiences.reduce((acc, exp) => {
+                    acc[`${exp.company.split(" ").join("_")}.txt`] = {
+                        type: "file",
+                        content: exp.description,
+                    };
+                    return acc;
+                }, {} as Record<string, FileSystemItem>)
+            },
             "about.txt": {
                 type: "file",
                 content: "Hi there, I'm Nguyen Vu — a highly motivated full stack software engineer with a B.Sc. in Computing" +
@@ -156,10 +232,6 @@ export const FileSystem: FileSystemStructure = {
                     "My journey has equipped me with a diverse skill set, from performance optimization and UX improvements to integrating Web3 technologies and leveraging AI tools.\n\n" +
                     "Outside of work, you'll find me dabbling in new technologies like AI, exploring digital forensics and OSINT for fun," +
                     " cooking, or dancing."
-            },
-            "experience.txt": {
-                type: "file",
-                content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             },
         }},
     };

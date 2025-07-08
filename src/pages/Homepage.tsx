@@ -6,11 +6,12 @@ import Projects from "../components/Projects";
 import Contact from "../components/Contact";
 import { useZoomLevel } from "../hooks/useZoomLevel";
 import {isDesktop} from "react-device-detect";
+import Experiences from "../components/Experience";
 
 
 const SECTIONS = [
     { id: "about", label: "ABOUT" },
-    // { id: "technologies", label: "TECHNOLOGIES" },
+    { id: "experiences", label: "EXPERIENCES" },
     { id: "projects", label: "PROJECTS" },
     { id: "contact", label: "CONTACT" },
 ];
@@ -20,7 +21,7 @@ export default function Homepage() {
     const [activeSection, setActiveSection] = useState<string | null>(null);
     const sectionRefs = useRef<Record<string, HTMLElement | null>>({
         about: null,
-        technologies: null,
+        experiences: null,
         projects: null,
         contact: null,
     });
@@ -137,6 +138,7 @@ export default function Homepage() {
                 <main>
                     <About ref={el => {sectionRefs.current["about"] = el}}/>
                     {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
+                    <Experiences ref={el => {sectionRefs.current["experiences"] = el}}/>
                     <Projects ref={el => {sectionRefs.current["projects"] = el}}/>
                     <Contact ref={(el) => {sectionRefs.current["contact"] = el}}/>
                 </main>
