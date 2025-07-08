@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import {experiences, type Experience} from "../constants/fileSystem";
 
-const ExperienceItem = ({exp, isLast} : {exp: Experience, isLast: boolean}) => {
+function ExperienceItem({exp, isLast} : {exp: Experience, isLast: boolean}) {
     return <div className="exp-item">
         {/*  Vertical line   */}
         {!isLast && <div className="exp-item_line" />}

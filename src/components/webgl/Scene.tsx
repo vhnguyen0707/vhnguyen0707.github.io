@@ -3,17 +3,7 @@ import {Suspense, useEffect} from "react";
 import * as THREE from "three";
 import {type Sizes, valMap} from "./WebGLCanvas";
 import Computer from "./Computer";
-import type {TerminalState} from "../../hooks/useTerminal.tsx";
-
-// Canvas Loader Component
-function CanvasLoader() {
-    return (
-        <mesh>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshBasicMaterial color="gray" />
-        </mesh>
-    );
-}
+import type {TerminalState} from "../../hooks/useTerminal";
 
 function CameraController({ scroll, sizes }: { scroll: number, sizes: Sizes }) {
     const { camera, gl } = useThree();
@@ -51,7 +41,6 @@ export default function Scene({ scroll, sizes, terminal }: { scroll: number, siz
             <directionalLight
               position={[10, 10, 0]}
               intensity={5.5}
-            //   color="0xFFFFFF"
             />
 
             {/* Camera Controller */}

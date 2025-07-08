@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { navLinks } from './NavBar';
 
-const MobileNav: React.FC = () => {
+export default function MobileNav() {
     const [openNav, setOpenNav] = useState(false);
 
     const toggleOpenNav = () => {
@@ -37,5 +37,3 @@ const MobileNav: React.FC = () => {
         </div>
     );
 };
-
-export default MobileNav;

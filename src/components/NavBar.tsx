@@ -1,8 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import MobileNav from "./MobileNav";
-// import MobileNav from "./MobileNav"; // Adjust the import path if needed
 
 export const navLinks = [
     { title: "About", href: "/#about"},
@@ -12,7 +10,7 @@ export const navLinks = [
     { title: "Resume", href: "/resume" },
 ];
 
-const NavBar: React.FC = () => {
+export default function NavBar() {
     return (
         <header className="navbar">
             <div className="navbar-inner">
@@ -35,5 +33,3 @@ const NavBar: React.FC = () => {
         </header>
     );
 };
-
-export default NavBar;

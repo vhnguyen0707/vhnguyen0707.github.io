@@ -4,13 +4,10 @@ import pdf from '../assets/resume.pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
-// import "react-pdf/dist/esm/Page/TextLayer.css";
-// import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 
-const ResumePdf = () => {
+function ResumePdf() {
     useEffect(() => {
         document.title = 'Nguyen\'s resume'
     }, [])
@@ -45,7 +42,7 @@ const ResumePdf = () => {
         </div>
     )
 }
-const Resume = () => {
+export default function Resume() {
     return (
         <div className="resume">
             <header className="text-4xl text-center mb-5">
@@ -55,5 +52,3 @@ const Resume = () => {
         </div>
     )
 }
-
-export default Resume

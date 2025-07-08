@@ -4,7 +4,6 @@ import Scene from "./Scene";
 import HiddenInputHandler from "./HiddenInputHandler";
 import useTerminal from "../../hooks/useTerminal";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function valMap(x: number, from: [number, number], to: [number, number]): number {
     const y = ((x - from[0]) / (from[1] - from[0])) * (to[1] - to[0]) + to[0];
 
@@ -102,7 +101,6 @@ export default function WebGLCanvas() {
                     rotation: [-Math.PI, 0, Math.PI],
                 }}
                 shadows
-                // resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
             >
                 <Scene
                     scroll={scroll}
@@ -117,17 +115,7 @@ export default function WebGLCanvas() {
             <div
                 className="computer-canvas_terminal-status"
                 style={{
-                // position: 'fixed',
-                // bottom: '20px',
-                // left: '20px',
                 color: isInputActive ? '#00ff00' : '#888',
-                // fontFamily: 'monospace',
-                // fontSize: '14px',
-                // background: 'rgba(0, 0, 0, 0.7)',
-                // padding: '10px',
-                // borderRadius: '5px',
-                // zIndex: 1000,
-                // transition: 'all 0.3s ease'
             }}>
                 {isInputActive ? (
                     <>

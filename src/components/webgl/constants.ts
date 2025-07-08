@@ -6,8 +6,3 @@ export const TERMINAL_CONSTANTS = {
     CANVAS_WIDTH: 512,
     CANVAS_HEIGHT: 384,
 } as const;
-
-// Scroll constants
-// export const SCROLL_CONSTANTS = {
-//     MAX_SCROLL_OFFSET: 50, // Maximum lines to scroll up
-// } as const;
