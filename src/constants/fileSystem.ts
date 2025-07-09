@@ -131,7 +131,7 @@ export const projects: Array<Project> = [
         demo: '',
         code: 'https://github.com/vhnguyen0707/GoBot.git',
         images: [ss51],
-        summary: 'A competitive GoMoku bots that can play against Medium-level human player to participate in CMPUT455 tournament and placed 3rd. The bot is strengthend in finding the possible most rewarding moved with the combination of Monte Carlo tree, alpha-beta pruning search, and heuristic search.'
+        summary: 'A competitive GoMoku bot that can play against Medium-level human player to participate in CMPUT455 tournament and placed 3rd. The bot is strengthend in finding the possible most rewarding moved with the combination of Monte Carlo tree, alpha-beta pruning search, and heuristic search.'
     }
 ]
 
