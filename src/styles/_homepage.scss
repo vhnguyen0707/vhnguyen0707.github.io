@@ -83,6 +83,7 @@ $large-desktop-breakpoint: 64.0625rem;
           }
         }
         a {
+          cursor: pointer;
           text-decoration: none;
           color: #64748b;
           transition: color 0.2s ease-in-out;
