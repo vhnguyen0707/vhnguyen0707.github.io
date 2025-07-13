@@ -1,5 +1,11 @@
 import {useEffect, useRef, useState } from "react";
 
+// Helper function to detect if a file is a video
+const isVideo = (filePath: string): boolean => {
+    const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.avi'];
+    return videoExtensions.some(ext => filePath.toLowerCase().includes(ext));
+};
+
 export default function ProjectImagesCarousel({images}: {images: Array<string>}) {
     const [currentIdx, setCurrentIdx] = useState<number>(0);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -20,16 +26,45 @@ export default function ProjectImagesCarousel({images}: {images: Array<string>})
             });
         }
     }
+    
     return <>
         <div className="images_carousel" ref={containerRef}>
-            {images.map((image, idx) => (
-                <div
-                    key={`${image}_${idx}`}
-                    className="images_carousel_item"
-                    id={`images_carousel_item-${idx}`}
-                    style={{backgroundImage: `url(${image})`}}
-                />
-            ))}
+            {images.map((media, idx) => {
+                const isVideoFile = isVideo(media);
+                
+                return (
+                    <div
+                        key={`${media}_${idx}`}
+                        className="images_carousel_item"
+                        id={`images_carousel_item-${idx}`}
+                    >
+                        {isVideoFile ? (
+                            <video 
+                                src={media}
+                                controls
+                                muted
+                                loop
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain'
+                                }}
+                            />
+                        ) : (
+                            <div 
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundImage: `url(${media})`,
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundPosition: 'center',
+                                    backgroundSize: 'contain'
+                                }}
+                            />
+                        )}
+                    </div>
+                );
+            })}
         </div>
 
         {images.length > 1 && <>

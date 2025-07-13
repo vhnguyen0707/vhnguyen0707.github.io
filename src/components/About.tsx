@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { isMobile } from "react-device-detect";
 
 const About = forwardRef<HTMLElement>((_, ref) => (
     <section
@@ -41,7 +42,7 @@ const About = forwardRef<HTMLElement>((_, ref) => (
                 <li>React</li>
                 <li>Node.js</li>
                 <li>Python</li>
-                <li>DRF</li>
+                <li>{isMobile ? "DRF" : "Django Rest Framework"}</li>
                 <li>MongoDB</li>
                 <li>PostgreSQL</li>
                 <li>GCP</li>

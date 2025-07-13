@@ -20,6 +20,9 @@ import devourgo5 from "../assets/projects/Devour/DevourGO5.png";
 
 import devourplay1 from "../assets/projects/Devour/DevourPlay1.png";
 import devourplay2 from "../assets/projects/Devour/DevourPlay2.png";
+import summarAIze1 from "../assets/projects/SummarAIze/demo1.png";
+import summarAIze2 from "../assets/projects/SummarAIze/demo2.png";
+import summarAIzeVideo from "../assets/projects/SummarAIze/SummarAIze-demo.mp4";
 
 
 interface FileSystemItem {
@@ -73,6 +76,19 @@ export const projects: Array<Project> = [
     },
     {
         id: 3,
+        name: "SummarAIze",
+        technologies: ['React', 'TypeScript', 'TailwindCSS', "Chrome Extension API", 'OpenAI API'],
+        live: "",
+        demo: "",
+        code: "https://github.com/vhnguyen0707/summarAIze",
+        images: [summarAIze1, summarAIze2, summarAIzeVideo],
+        summary: "SummarAIze is a Chrome extension that automatically detects, grabs transcripts and generates intelligent " +
+            "summaries of YouTube videos using advanced AI technology. The extension extracts video transcripts and leverages " +
+            "large language models to create concise, bullet-point summaries that highlight the main topics and key insights from" +
+            "any YouTube video."
+    },
+    {
+        id: 4,
         name: 'Where\'s Waldo?',
         technologies: ['React', 'TypeScript', 'TailwindCSS', 'Firebase'],
         live: '',
@@ -82,7 +98,7 @@ export const projects: Array<Project> = [
         summary: 'Photo Tagging Game where players are presented with busy and crowded illustrations to find the hidden objects/characters.'
     },
     {
-        id: 4,
+        id: 5,
         name: 'FlickPedia',
         technologies: ['MongoDB', 'React', 'NodeJS', 'Express', 'Redux', 'MaterialUI'],
         live: 'https://flickpedia.vercel.app/',
@@ -92,7 +108,7 @@ export const projects: Array<Project> = [
         summary: 'An IMDb-inspired platform for entertainment fans to exlore extensive and authorative source for movie, TV, and celebrity content. Users can review and see others\' ratings and reviews for the newest movie and TV shows.'
     },
     {
-        id: 5,
+        id: 6,
         name: 'The EFCL Financial Proficiency Assessment Tool',
         technologies: ['DRF', 'PostgreSQL', 'React', 'MaterialUI', 'Jest', 'Docker', 'Nginx', 'Gunicorn'],
         live: '',
@@ -102,7 +118,7 @@ export const projects: Array<Project> = [
         summary: 'EFCL\'s Financial Proficiency Assessment Tool streamlines board member evaluations in community associations. With this digital solution, surveys are easily shared, responses automatically compiled, and real-time statistics empower surveyors for advanced analysis, eliminating the need for in-person meetings.'
     },
     {
-        id: 6,
+        id: 7,
         name: 'Squawker Social Distribution',
         technologies: ['DRF', 'Django Template', 'SQLite', 'HTML', 'CSS', 'jQuery'],
         live: '',
@@ -114,7 +130,7 @@ export const projects: Array<Project> = [
          and interactions such as post sharing, friend adding, likes and comments across all integrated platforms`
     },
     {
-        id: 7,
+        id: 8,
         name: 'Mobilibrary',
         technologies: ['Java', 'Firebase', 'TravisCI'],
         live: '',
@@ -124,7 +140,7 @@ export const projects: Array<Project> = [
         summary: 'An Android app providing book lovers with a convenient way to borrow and lend books online. The app has built-in ISBN barcode scanner for easy and quick search, adding and returning books, and integrated Google Maps API for scheduling a meet-up.'
     },
     {
-        id: 8,
+        id: 9,
         name: 'GoMoku',
         technologies: ['Python'],
         live: '',
