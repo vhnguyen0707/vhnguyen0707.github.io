@@ -209,7 +209,7 @@ export default function useTerminal(): TerminalState {
                 if (args.length) {
                     result = "\nError: 'help' doesn't accept any arguments\n\n";
                 } else {
-                    result = "\nPress 'tab' for auto complete\n\nLS       Lists current directory contents\nCD       Changes directory, '..' moves back, '/' to root\nSHOW     Opens specified file in current directory\nCLEAR    Clears all previous terminal outputs\n\n";
+                    result = "\nPress 'tab' for auto complete\n\nls       Lists current directory contents\ncd       Changes directory, '..' moves back, '/' to root\nshow     Opens specified file in current directory\nclear    Clears all previous terminal outputs\n\n";
                 }
                 break;
 

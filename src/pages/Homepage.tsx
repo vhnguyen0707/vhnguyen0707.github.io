@@ -137,7 +137,6 @@ export default function Homepage() {
                 </header>
                 <main>
                     <About ref={el => {sectionRefs.current["about"] = el}}/>
-                    {/*<Technologies ref={el => (sectionRefs.current["technologies"] = el)} />*/}
                     <Experiences ref={el => {sectionRefs.current["experiences"] = el}}/>
                     <Projects ref={el => {sectionRefs.current["projects"] = el}}/>
                     <Contact ref={(el) => {sectionRefs.current["contact"] = el}}/>

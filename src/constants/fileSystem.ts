@@ -24,6 +24,9 @@ import summarAIze1 from "../assets/projects/SummarAIze/demo1.png";
 import summarAIze2 from "../assets/projects/SummarAIze/demo2.png";
 import summarAIzeVideo from "../assets/projects/SummarAIze/SummarAIze-demo.mp4";
 
+import pw1 from "../assets/projects/personal_website/pw1.png";
+import pw2 from "../assets/projects/personal_website/pw2.png";
+import pw3 from "../assets/projects/personal_website/pw3.png";
 
 interface FileSystemItem {
     type: 'file' | 'directory' | 'link';
@@ -49,6 +52,16 @@ export interface Project {
 export const projects: Array<Project> = [
     {
         id: 1,
+        name: "Personal Website",
+        technologies: ["React", "TypeScript", "WebGL/Three.js"],
+        live: "https://vhnguyen0707-github-io.vercel.app/",
+        demo: "",
+        code: "https://github.com/vhnguyen0707/vhnguyen0707.github.io",
+        images: [pw1, pw2, pw3],
+        summary: "Built an immersive, responsive portfolio site with React and TypeScript, featuring a WebGL-rendered retro 3D computer as the interactive centerpiece. Visitors can interact with the site via a command-line style terminal, explore a dynamic project gallery, view animated visuals, and download a resume—all within a uniquely stylized virtual workspace."
+    },
+    {
+        id: 2,
         name: "DevourGO - Food Delivery Platform",
         technologies: ["NodeJS", "React", "TypeScript", "MongoDB", "ExpressJS", "GCP", "Terraform", "Docker"],
         live: "https://devourgo.io/",
@@ -62,7 +75,7 @@ export const projects: Array<Project> = [
             "redeem digital assets while ordering food.",
     },
     {
-        id: 2,
+        id: 3,
         name: "DevourPlay - In-Game Food Ordering Overlay",
         technologies: ["JavaScript", "NodeJS", "TypeScript", "Overwolf API"],
         live: "https://www.overwolf.com/app/devour-devourplay",
@@ -75,11 +88,11 @@ export const projects: Array<Project> = [
             ", offering a unique and immersive way to enhance gameplay with real-world incentives.",
     },
     {
-        id: 3,
+        id: 4,
         name: "SummarAIze",
         technologies: ['React', 'TypeScript', 'TailwindCSS', "Chrome Extension API", 'OpenAI API'],
         live: "",
-        demo: "",
+        demo: "https://drive.google.com/file/d/1xBy4ggQSUMml7TF-z-pbjIVXMZUww6Ix/view?usp=drive_link",
         code: "https://github.com/vhnguyen0707/summarAIze",
         images: [summarAIze1, summarAIze2, summarAIzeVideo],
         summary: "SummarAIze is a Chrome extension that automatically detects, grabs transcripts and generates intelligent " +
@@ -88,7 +101,7 @@ export const projects: Array<Project> = [
             "any YouTube video."
     },
     {
-        id: 4,
+        id: 5,
         name: 'Where\'s Waldo?',
         technologies: ['React', 'TypeScript', 'TailwindCSS', 'Firebase'],
         live: '',
@@ -98,7 +111,7 @@ export const projects: Array<Project> = [
         summary: 'Photo Tagging Game where players are presented with busy and crowded illustrations to find the hidden objects/characters.'
     },
     {
-        id: 5,
+        id: 6,
         name: 'FlickPedia',
         technologies: ['MongoDB', 'React', 'NodeJS', 'Express', 'Redux', 'MaterialUI'],
         live: 'https://flickpedia.vercel.app/',
@@ -108,7 +121,7 @@ export const projects: Array<Project> = [
         summary: 'An IMDb-inspired platform for entertainment fans to exlore extensive and authorative source for movie, TV, and celebrity content. Users can review and see others\' ratings and reviews for the newest movie and TV shows.'
     },
     {
-        id: 6,
+        id: 7,
         name: 'The EFCL Financial Proficiency Assessment Tool',
         technologies: ['DRF', 'PostgreSQL', 'React', 'MaterialUI', 'Jest', 'Docker', 'Nginx', 'Gunicorn'],
         live: '',
@@ -118,7 +131,7 @@ export const projects: Array<Project> = [
         summary: 'EFCL\'s Financial Proficiency Assessment Tool streamlines board member evaluations in community associations. With this digital solution, surveys are easily shared, responses automatically compiled, and real-time statistics empower surveyors for advanced analysis, eliminating the need for in-person meetings.'
     },
     {
-        id: 7,
+        id: 8,
         name: 'Squawker Social Distribution',
         technologies: ['DRF', 'Django Template', 'SQLite', 'HTML', 'CSS', 'jQuery'],
         live: '',
@@ -130,7 +143,7 @@ export const projects: Array<Project> = [
          and interactions such as post sharing, friend adding, likes and comments across all integrated platforms`
     },
     {
-        id: 8,
+        id: 9,
         name: 'Mobilibrary',
         technologies: ['Java', 'Firebase', 'TravisCI'],
         live: '',
@@ -140,7 +153,7 @@ export const projects: Array<Project> = [
         summary: 'An Android app providing book lovers with a convenient way to borrow and lend books online. The app has built-in ISBN barcode scanner for easy and quick search, adding and returning books, and integrated Google Maps API for scheduling a meet-up.'
     },
     {
-        id: 9,
+        id: 10,
         name: 'GoMoku',
         technologies: ['Python'],
         live: '',
